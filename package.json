@@ -4,16 +4,16 @@
   "scripts": {
     "dev": "next",
     "now-build": "next build",
-    "start": "next start"
+    "start": "next"
   },
   "author": "Lachlan Campbell",
   "license": "MIT",
   "dependencies": {
     "isomorphic-unfetch": "^3.0.0",
-    "lodash": "^4.17.11",
-    "next": "^9.0.1-canary.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "victory": "^32.3.3"
+    "lodash": "^4.17.15",
+    "next": "^9.0.5",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "victory": "^33.0.5"
   }
 }
