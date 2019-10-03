@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import fetch from 'isomorphic-unfetch'
-import { colors, fontSizes } from '../components/theme'
+import { colors } from '../components/theme'
 
 const Page = ({ now, one, ten }) => (
   <main>
