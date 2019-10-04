@@ -5,24 +5,33 @@ import Stat from '../components/stat'
 import { colors } from '../components/theme'
 import { withScreenSize } from '@vx/responsive'
 
+const Meta = ({
+  name = 'CO₂',
+  title = 'CO₂/Apocalypse Tracker',
+  description = 'Track the PPM of CO₂ in the atmosphere.',
+  image = 'https://co2.now.sh/static/card.png',
+  url = 'https://co2.now.sh'
+}) => (
+  <Head>
+    <title>{title}</title>
+    <meta property="og:title" content={title} />
+    <meta name="twitter:title" content={title} />
+    <meta name="og:url" content={url} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={name} />
+    <meta property="twitter:site" content="@lachlanjc" />
+    <meta name="description" content={description} />
+    <meta property="og:description" content={description} />
+    <meta name="twitter:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={image} />
+  </Head>
+)
+
 const Page = withScreenSize(({ screenWidth, screenHeight, stats, history }) => (
   <main>
-    <Head>
-      <title>CO₂</title>
-      <meta property="twitter:card" content="summary" />
-      <meta property="twitter:site" content="@lachlanjc" />
-      <meta
-        property="twitter:description"
-        content="Track the PPM of CO₂ in the atmosphere."
-      />
-      <meta property="og:title" content="CO₂" />
-      <meta property="og:type" content="website" />
-      <meta property="og:url" content="https://co2.now.sh/" />
-      <meta
-        property="description"
-        content="Track the PPM of CO₂ in the atmosphere."
-      />
-    </Head>
+    <Meta />
     <Graph
       data={history}
       width={screenWidth || 512}
