@@ -1,8 +1,11 @@
-import Head from 'next/head'
 import fetch from 'isomorphic-unfetch'
-import { colors, fontSizes } from '../components/theme'
+import Head from 'next/head'
+import Graph from '../components/graph'
+import Stat from '../components/stat'
+import { colors } from '../components/theme'
+import { withScreenSize } from '@vx/responsive'
 
-const Page = ({ now, one, ten }) => (
+const Page = withScreenSize(({ screenWidth, screenHeight, stats, history }) => (
   <main>
     <Head>
       <title>CO₂</title>
@@ -20,106 +23,119 @@ const Page = ({ now, one, ten }) => (
         content="Track the PPM of CO₂ in the atmosphere."
       />
     </Head>
-    <section className="banner">
-      <div className="banner__left">
-        <h1>CO₂</h1>
-      </div>
-      <div className="banner__right">
-        <h2>Today: {now} PPM</h2>
-        <h2>1 year ago: {one} PPM</h2>
-        <h2>10 years ago: {ten} PPM</h2>
-      </div>
-    </section>
+    <Graph
+      data={history}
+      width={screenWidth || 512}
+      height={screenHeight || 512}
+    />
+    <article>
+      <h1>
+        <span>🌎🔥</span> CO₂ <abbrev title="parts per million">PPM</abbrev>
+      </h1>
+      <Stat value={stats.ten} label="10yrs ago" color={colors.yellow} />
+      <Stat value={stats.one} label="1yr ago" color={colors.orange} />
+      <Stat value={stats.now} label="today" color={colors.red} />
+    </article>
+    <footer>
+      <span>
+        {history[0].date.substr(0, 4)} – {history[0].value} PPM
+      </span>
+      <span>
+        {history[history.length - 1].date.substr(0, 4)} –{' '}
+        {history[history.length - 1].value} PPM
+      </span>
+    </footer>
     <style jsx global>{`
       * {
         box-sizing: border-box;
       }
       body {
-        background-color: ${colors.white};
+        background-color: ${colors.dark};
+        color: ${colors.white};
         font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
         line-height: 1.66;
         margin: 0;
-        padding: 1rem;
         display: flex;
         flex-direction: column;
-        justify-content: center;
         min-height: 100vh;
       }
-      @media (min-width: 32em) {
-        body {
-          padding: 2rem;
-        }
-      }
-      @media (prefers-color-scheme: dark) {
-        body {
-          background-color: ${colors.dark};
-        }
+      body :global(.graph) {
+        position: absolute;
+        top: 0;
+        left: 0;
       }
     `}</style>
     <style jsx>{`
-      .banner {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        border: 4px solid currentColor;
-        color: ${colors.black};
-        min-height: 24rem;
-        padding: 2rem 1rem;
+      article {
+        text-align: center;
+        padding: 1rem;
       }
       h1 {
         font-weight: 800;
-        font-size: 3rem;
-        margin: 0;
+        font-size: 4rem;
+        margin-top: 0;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
-      h2 {
-        font-weight: 600;
-        font-size: 1.25rem;
-        margin: 0;
+      h1 span,
+      h1 abbrev {
+        display: inline-block;
+        margin: 0 1.5rem;
       }
-      h2:nth-child(1) {
-        color: ${colors.red};
+      h1 span {
+        font-size: 2.25rem;
       }
-      h2:nth-child(2) {
-        color: ${colors.orange};
+      h1 abbrev {
+        font-size: 1.5rem;
+        background-image: linear-gradient(
+          rgba(255, 255, 255, 1),
+          rgba(255, 255, 255, 0.75)
+        );
+        border-radius: 0.5rem;
+        padding: 0 0.5rem;
+        color: ${colors.dark};
       }
-      h2:nth-child(3) {
+      footer {
+        width: 100%;
+        height: 100%;
+        display: none;
+        justify-content: space-between;
+        align-items: space-between;
+        padding: 0.375rem 0.75rem;
+        position: fixed;
+        top: 0;
+        opacity: 0.5;
+        font-size: 0.875rem;
+      }
+      footer span:first-child {
+        margin-top: auto;
         color: ${colors.yellow};
       }
-      @media (max-width: 32em) {
-        h1 {
-          padding-bottom: 0.25rem;
-          margin-bottom: 2rem;
-          border-bottom: 4px solid currentColor;
-        }
+      footer span:last-child {
+        color: ${colors.red};
       }
       @media (min-width: 32em) {
-        .banner {
-          flex-direction: row;
-          align-items: center;
+        article {
           padding: 4rem 2rem;
         }
-        .banner__left {
-          padding-right: 2rem;
-          margin-right: 2rem;
-          border-right: 4px solid currentColor;
-        }
         h1 {
-          font-size: 4rem;
+          margin-bottom: 2rem;
         }
-      }
-      @media (prefers-color-scheme: dark) {
-        .banner {
-          background-color: ${colors.dark};
-          color: ${colors.white};
+        footer {
+          display: flex;
         }
       }
     `}</style>
   </main>
-)
+))
 
-Page.getInitialProps = ({ req }) =>
-  fetch((req ? `http://${req.headers.host}` : '') + '/api/stats').then(res =>
-    res.json()
-  )
+Page.getInitialProps = async ({ req }) => {
+  const root = req ? `http://${req.headers.host}` : ''
+  const stats = await fetch(root + '/api/stats').then(res => res.json())
+  const history = await fetch(root + '/api/history').then(res => res.json())
+  return { stats, history }
+}
 
 export default Page

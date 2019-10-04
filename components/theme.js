@@ -1,13 +1,3 @@
-// export const breakpoints = [
-//   '(min-width:32em)',
-//   '(min-width:48em)',
-//   '(min-width:64em)'
-// ].map(w => `@media ${w}`)
-
-// export const space = [0, 8, 16, 32, 64, 128, 256]
-
-// export const fontSizes = [12, 16, 20, 24, 32, 48, 64, 96, 128]
-
 export const colors = {
   darker: '#121217',
   dark: '#17171d',
@@ -27,11 +17,6 @@ export const colors = {
   blue: '#338eda'
 }
 
-const theme = {
-  // breakpoints,
-  // space,
-  // fontSizes,
-  colors
-}
+const theme = { colors }
 
 export default theme
