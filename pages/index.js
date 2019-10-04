@@ -26,6 +26,7 @@ const Meta = ({
     <meta property="og:image" content={image} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={image} />
+    <meta name="format-detection" content="telephone=no" />
   </Head>
 )
 
