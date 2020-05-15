@@ -2,7 +2,7 @@ import fetch from 'isomorphic-unfetch'
 import toNumber from 'lodash/toNumber'
 import round from 'lodash/round'
 
-export default (req, res) =>
+export default (req, res = null) =>
   fetch('http://www.hqcasanova.com/co2/?callback=callback')
     .then(data => data.text())
     .then(txt => {
@@ -17,7 +17,13 @@ export default (req, res) =>
       date: json.date,
       delta: json.delta
     }))
-    .then(json => res.json(json))
+    .then(json => {
+      if (res) {
+        res.json(json)
+      } else {
+        return json
+      }
+    })
     .catch(error => {
       console.error(error)
     })
