@@ -11,13 +11,13 @@
   "dependencies": {
     "isomorphic-unfetch": "^3.0.0",
     "lodash": "^4.17.15",
-    "next": "^9.0.7",
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2",
-    "@vx/shape": "^0.0.192",
-    "@vx/curve": "^0.0.192",
-    "@vx/grid": "^0.0.192",
-    "@vx/scale": "^0.0.192",
-    "@vx/responsive": "^0.0.192"
+    "next": "^9.4.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "@vx/shape": "^0.0.196",
+    "@vx/curve": "^0.0.196",
+    "@vx/grid": "^0.0.196",
+    "@vx/scale": "^0.0.196",
+    "@vx/responsive": "^0.0.196"
   }
 }

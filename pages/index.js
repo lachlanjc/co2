@@ -1,4 +1,3 @@
-import fetch from 'isomorphic-unfetch'
 import Head from 'next/head'
 import Graph from '../components/graph'
 import Stat from '../components/stat'
@@ -9,7 +8,7 @@ const Meta = ({
   name = 'CO₂',
   title = 'CO₂/Apocalypse Tracker',
   description = 'Track the PPM of CO₂ in the atmosphere.',
-  image = 'https://co2.now.sh/static/card.png',
+  image = 'https://co2.now.sh/card.png',
   url = 'https://co2.now.sh'
 }) => (
   <Head>
@@ -141,11 +140,13 @@ const Page = withScreenSize(({ screenWidth, screenHeight, stats, history }) => (
   </main>
 ))
 
-Page.getInitialProps = async ({ req }) => {
-  const root = req ? `http://${req.headers.host}` : ''
-  const stats = await fetch(root + '/api/stats').then(res => res.json())
-  const history = await fetch(root + '/api/history').then(res => res.json())
-  return { stats, history }
+export const getStaticProps = async () => {
+  const getStats = require('./api/stats').default
+  const getHistory = require('./api/history').default
+  return {
+    props: { stats: await getStats(), history: await getHistory() },
+    unstable_revalidate: 15
+  }
 }
 
 export default Page
