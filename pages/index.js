@@ -61,7 +61,8 @@ const Page = withScreenSize(({ screenWidth, screenHeight, stats, history }) => (
       body {
         background-color: ${colors.dark};
         color: ${colors.white};
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        font-family: ui-rounded, system-ui, -apple-system, BlinkMacSystemFont,
+          sans-serif;
         line-height: 1.66;
         margin: 0;
         display: flex;
@@ -102,6 +103,7 @@ const Page = withScreenSize(({ screenWidth, screenHeight, stats, history }) => (
           rgba(255, 255, 255, 1),
           rgba(255, 255, 255, 0.75)
         );
+        line-height: 1.5;
         border-radius: 0.5rem;
         padding: 0 0.5rem;
         color: ${colors.dark};
@@ -130,6 +132,8 @@ const Page = withScreenSize(({ screenWidth, screenHeight, stats, history }) => (
           padding: 4rem 2rem;
         }
         h1 {
+          font-size: 6rem;
+          line-height: 1;
           margin-bottom: 2rem;
         }
         footer {
@@ -145,7 +149,7 @@ export const getStaticProps = async () => {
   const getHistory = require('./api/history').default
   return {
     props: { stats: await getStats(), history: await getHistory() },
-    unstable_revalidate: 15
+    revalidate: 15
   }
 }
 
