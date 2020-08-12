@@ -1,4 +1,3 @@
-import fetch from 'isomorphic-unfetch'
 import { round, toNumber } from 'lodash'
 
 const path =

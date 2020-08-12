@@ -1,4 +1,3 @@
-import fetch from 'isomorphic-unfetch'
 import toNumber from 'lodash/toNumber'
 import round from 'lodash/round'
 

@@ -9,15 +9,14 @@
   "author": "Lachlan Campbell",
   "license": "MIT",
   "dependencies": {
-    "isomorphic-unfetch": "^3.0.0",
-    "lodash": "^4.17.15",
-    "next": "^9.4.0",
+    "lodash": "^4.17.19",
+    "next": "^9.5.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "@vx/shape": "^0.0.196",
-    "@vx/curve": "^0.0.196",
-    "@vx/grid": "^0.0.196",
-    "@vx/scale": "^0.0.196",
-    "@vx/responsive": "^0.0.196"
+    "@vx/shape": "^0.0.198",
+    "@vx/curve": "^0.0.198",
+    "@vx/grid": "^0.0.198",
+    "@vx/scale": "^0.0.198",
+    "@vx/responsive": "^0.0.198"
   }
 }
