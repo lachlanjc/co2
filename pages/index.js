@@ -145,10 +145,11 @@ const Page = withScreenSize(({ screenWidth, screenHeight, stats, history }) => (
 ))
 
 export const getStaticProps = async () => {
-  const getStats = require('./api/stats').default
+  // const getStats = require('./api/stats').default
   const getHistory = require('./api/history').default
+  const stats = {"now":413,"one":410,"ten":389,"date":"2020-08-13T13:01:12+02:00","delta":5.56}
   return {
-    props: { stats: await getStats(), history: await getHistory() },
+    props: { stats, history: await getHistory() },
     revalidate: 15
   }
 }
