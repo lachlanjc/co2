@@ -9,7 +9,7 @@
   "author": "Lachlan Campbell",
   "license": "MIT",
   "dependencies": {
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "next": "^9.5.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
